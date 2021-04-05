@@ -72,5 +72,18 @@ public class Player : MonoBehaviour {
         {
 			SceneManager.LoadScene("Game");
         }
+
+
+
+		int taxiLayer = LayerMask.GetMask("PlatformTaxi");
+
+		bool RaycastBounce = Physics.Raycast(transform.position, Vector3.down, 1f, taxiLayer);
+
+		Debug.Log(RaycastBounce);
+		if (RaycastBounce)
+		{
+			moveDirection.y = 15f;
+			moveDirection.x += 0.1f;
+		}
 	}
 }
