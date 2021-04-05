@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 
 public class Player : MonoBehaviour {
 
@@ -38,21 +40,27 @@ public class Player : MonoBehaviour {
 				animator.SetInteger("AnimationPar", 0);
 			}
 
-			transform.Rotate(0, turnX * turnSpeed * Time.deltaTime, 0);
-			moveDirection.y -= gravity * Time.deltaTime;
-			controller.Move(moveDirection * Time.deltaTime);
+			
 
 		//]
 		int platformLayer = LayerMask.GetMask("PlatformCar");
 
 		bool RaycastTouch = Physics.Raycast(transform.position, Vector3.down * 0.01f, jumpSpeed, platformLayer);
-		if (Input.GetKey(KeyCode.Space) && controller.isGrounded)
+		if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
         {
-			moveDirection.y += gravity;
+			moveDirection.y += Mathf.Sqrt(jumpSpeed  * gravity) * Time.deltaTime;
 			controller.Move(moveDirection * Time.deltaTime);
         }
 
+		transform.Rotate(0, turnX * turnSpeed * Time.deltaTime, 0);
+		moveDirection.y -= gravity * Time.deltaTime;
+
+		controller.Move(moveDirection * Time.deltaTime);
 
 
+		if (Input.GetKey(KeyCode.Backspace))
+		{
+			SceneManager.LoadScene("Game");
+		}
 	}
 }

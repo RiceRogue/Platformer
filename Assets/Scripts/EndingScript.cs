@@ -15,6 +15,7 @@ public class EndingScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Astronaut")
         {
+
             SceneManager.LoadScene("Game");
         }
 
