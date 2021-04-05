@@ -1,0 +1,10 @@
+Used the Simple Cars Pack: https://assetstore.unity.com/packages/3d/vehicles/land/simple-cars-pack-97669 for Car and vehicle prefab asset models
+
+Used the Space Ship: https://assetstore.unity.com/packages/3d/characters/humanoids/sci-fi/stylized-astronaut-114298?q=space%20ship&orderBy=1  for the model as a final set piece. 
+
+Used the Cube Prototype a: https://assetstore.unity.com/packages/3d/characters/robots/cube-prototype-a-121199 for the model and animation for an enemy.
+
+Used the Stylized Space Astronaut: https://assetstore.unity.com/packages/3d/characters/humanoids/sci-fi/stylized-astronaut-114298 for the character model and simple walking animation, as well as a very miminal basis for its code for turning with the animation. 
+
+
+All Assets used were in the primary use of cool character models and set pieces.  
