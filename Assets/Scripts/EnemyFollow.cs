@@ -8,24 +8,29 @@ public class EnemyFollow : MonoBehaviour
     public float speed;
     void Start()
     {
-        speed = 3f;
+        speed = 6f;
+        //transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
     }
 
     // Update is called once per frame
     void Update()
     {
         GameObject player = GameObject.Find("Astronaut");
-        transform.LookAt(player.transform);
-        GetComponent<Rigidbody>().MovePosition(player.transform.position);
-    }
+        //GetComponent<Rigidbody>().MovePosition(player.transform.position);
 
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+        transform.LookAt(player.transform.position + new Vector3(0,1f,0));
+        GetComponent<Rigidbody>().MovePosition(transform.position + direction * speed * Time.deltaTime);
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Astronaut")
+        int playerLayer = LayerMask.GetMask("Player");
+
+        bool RaycastHit = Physics.Raycast(transform.position, Vector3.forward, 1f, playerLayer);
+        if (RaycastHit)
         {
-            collision.gameObject.GetComponent<Player>().health--;
+            player.GetComponent<Player>().health--;
         }
-
     }
+
+
+    
 }

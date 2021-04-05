@@ -79,7 +79,6 @@ public class Player : MonoBehaviour {
 
 		bool RaycastBounce = Physics.Raycast(transform.position, Vector3.down, 1f, taxiLayer);
 
-		Debug.Log(RaycastBounce);
 		if (RaycastBounce)
 		{
 			moveDirection.y = 15f;
