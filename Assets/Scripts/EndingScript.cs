@@ -5,21 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class EndingScript : MonoBehaviour
 {
+    public GameObject player;
+    public float timer;
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void Update()
     {
-        if (collision.gameObject.tag == "Astronaut")
+        if(Vector3.Distance(transform.position, player.transform.position ) <= 3)
         {
 
-            SceneManager.LoadScene("Game");
+            timer += Time.deltaTime;
+            if (timer > 1.0f)
+            {
+                SceneManager.LoadScene("Game");
+            }
+
         }
 
+
+
     }
+    
 
 
 

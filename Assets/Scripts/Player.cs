@@ -12,13 +12,16 @@ public class Player : MonoBehaviour {
 	[SerializeField] float turnSpeed = 400.0f;
 	[SerializeField] float jumpSpeed = 8.0f;
 
-	private Vector3 moveDirection = Vector3.zero;
+	public Vector3 moveDirection = Vector3.zero;
 
 	[SerializeField] float gravity = 20.0f;
 
+	public int health;
 		void Start () {
 			controller = GetComponent <CharacterController>();
 			animator = gameObject.GetComponentInChildren<Animator>();
+
+		health = 200;
 		}
 
 		void Update (){
@@ -26,7 +29,7 @@ public class Player : MonoBehaviour {
 
 		//Taken from the astronaut assets pack on the unity store. https://assetstore.unity.com/packages/3d/characters/humanoids/sci-fi/stylized-astronaut-114298
 		//Borrowed but also edited it to fit with what we learned in class from the character controller tutorial professor Gilbert gave. 
-		moveDirection = transform.forward * Input.GetAxis("Vertical") * speed;
+		
 			
 
 			float turnX = Input.GetAxis("Horizontal");
@@ -45,22 +48,29 @@ public class Player : MonoBehaviour {
 		//]
 		int platformLayer = LayerMask.GetMask("PlatformCar");
 
-		bool RaycastTouch = Physics.Raycast(transform.position, Vector3.down * 0.01f, jumpSpeed, platformLayer);
-		if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
-        {
-			moveDirection.y += Mathf.Sqrt(jumpSpeed  * gravity) * Time.deltaTime;
-			controller.Move(moveDirection * Time.deltaTime);
-        }
+		//bool RaycastTouch = Physics.Raycast(transform.position, Vector3.down * 0.01f, jumpSpeed, platformLayer);
+
+		if (controller.isGrounded)
+		{
+			moveDirection = transform.forward * turnY * speed;
+
+
+			if (Input.GetKey(KeyCode.Space))
+			{
+				moveDirection.y = Mathf.Lerp(moveDirection.y, jumpSpeed, jumpSpeed/2);
+
+			}
+		}
 
 		transform.Rotate(0, turnX * turnSpeed * Time.deltaTime, 0);
-		moveDirection.y -= gravity * Time.deltaTime;
+		moveDirection.y -= gravity * Time.deltaTime * speed;
 
-		controller.Move(moveDirection * Time.deltaTime);
+		controller.Move(moveDirection * Time.deltaTime * speed);
 
 
-		if (Input.GetKey(KeyCode.Backspace))
-		{
+		if(health <= 0)
+        {
 			SceneManager.LoadScene("Game");
-		}
+        }
 	}
 }
